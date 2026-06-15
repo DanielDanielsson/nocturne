@@ -1,0 +1,1 @@
+export { GlucoseReadingsPoc } from './GlucoseReadingsPoc';

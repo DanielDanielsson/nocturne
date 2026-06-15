@@ -1,0 +1,162 @@
+.heading1_bold {
+  font-family: var(--font-urbanist);
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 100%;
+}
+
+.heading2_bold {
+  font-family: var(--font-urbanist);
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 110%;
+}
+
+.heading3_bold {
+  font-family: var(--font-urbanist);
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 110%;
+}
+
+.page_title {
+  font-family: var(--font-urbanist);
+  font-size: 1.875rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.05;
+}
+
+.section_title {
+  font-family: var(--font-urbanist);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.15;
+}
+
+.page_subtitle {
+  font-family: var(--font-urbanist);
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.45;
+}
+
+.panel_title {
+  font-family: var(--font-urbanist);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.body_text {
+  font-family: var(--font-urbanist);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+
+.body_text_strong {
+  font-family: var(--font-urbanist);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+
+.ui_caption {
+  font-family: var(--font-urbanist);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1rem;
+  letter-spacing: 0;
+}
+
+.ui_micro_label {
+  font-family: var(--font-urbanist);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ui_input_text {
+  font-family: var(--font-urbanist);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+.ui_table_heading {
+  font-family: var(--font-urbanist);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.ui_table_text {
+  font-family: var(--font-urbanist);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+
+.ui_table_text_strong {
+  font-family: var(--font-urbanist);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0;
+}
+
+.ui_mono_text {
+  font-family: var(--font-plex-mono);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+.ui_mono_value_md {
+  font-family: var(--font-plex-mono);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+
+.ui_mono_value_lg {
+  font-family: var(--font-plex-mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+
+.ui_mono_value_display {
+  font-family: var(--font-plex-mono);
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.ui_chart_axis_text {
+  font-family: var(--font-plex-mono);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0;
+}

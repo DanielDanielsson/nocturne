@@ -40,6 +40,12 @@ class Program
             "Aspire:OptionalServices:Caddy:Enabled",
             true
         );
+        var useReactFrontend = builder.ExecutionContext.IsRunMode
+            && string.Equals(
+                builder.Configuration["Aspire:Frontend:Kind"],
+                "React",
+                StringComparison.OrdinalIgnoreCase
+            );
 
         var compose = builder.AddDockerComposeEnvironment("compose");
         if (!includeDashboard)
@@ -370,6 +376,7 @@ class Program
         // Web app (SvelteKit + integrated WebSocket bridge)
         // ------------------------------------------------------------------
         var webPackagePath = Path.Combine(solutionRoot, "src", "Web", "packages", "app");
+        var reactWebPackagePath = Path.Combine(solutionRoot, "src", "WebReact");
         var webDockerContextPath = Path.Combine(solutionRoot, "src", "Web");
 
         IResourceBuilder<T> ConfigureWebEnvironment<T>(IResourceBuilder<T> resource)
@@ -406,7 +413,20 @@ class Program
 
         IResourceBuilder<IResourceWithEndpoints> web;
 
-        if (builder.ExecutionContext.IsRunMode)
+        if (builder.ExecutionContext.IsRunMode && useReactFrontend)
+        {
+            var reactWeb = builder
+                .AddNpmApp(ServiceNames.NocturneWeb, reactWebPackagePath, "dev")
+                .WithHttpEndpoint(env: "PORT")
+                .WithHttpHealthCheck("/")
+                .WaitFor(api);
+
+            ConfigureWebEnvironment(reactWeb)
+                .WithEnvironment("NEXT_PUBLIC_NOCTURNE_API_URL", api.GetEndpoint("http"));
+            instanceKey.WithParentRelationship(reactWeb);
+            web = reactWeb;
+        }
+        else if (builder.ExecutionContext.IsRunMode)
         {
             var bridgePackagePath = Path.Combine(solutionRoot, "src", "Web", "packages", "bridge");
             var bridge = builder.AddPnpmApp(
@@ -576,9 +596,20 @@ class Program
                 yarp.AddRoute("/api/auth/platform-access", api.GetEndpoint("http"))
                     .WithTransformXForwarded("X-Forwarded-", xForwardedAction);
 
-                // Bot webhooks, remote functions → web
-                yarp.AddRoute("/api/{**catch-all}", webEndpoints.GetEndpoint("http"))
-                    .WithTransformXForwarded("X-Forwarded-", xForwardedAction);
+                if (useReactFrontend)
+                {
+                    yarp.AddRoute("/api/nocturne/{**catch-all}", webEndpoints.GetEndpoint("http"))
+                        .WithTransformXForwarded("X-Forwarded-", xForwardedAction);
+
+                    yarp.AddRoute("/api/v4/{**catch-all}", api.GetEndpoint("http"))
+                        .WithTransformXForwarded("X-Forwarded-", xForwardedAction);
+                }
+                else
+                {
+                    // Bot webhooks, remote functions → web
+                    yarp.AddRoute("/api/{**catch-all}", webEndpoints.GetEndpoint("http"))
+                        .WithTransformXForwarded("X-Forwarded-", xForwardedAction);
+                }
 
                 // Bot account linking
                 yarp.AddRoute("/auth/bot/{**catch-all}", webEndpoints.GetEndpoint("http"))
